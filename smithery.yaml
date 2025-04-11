@@ -1,0 +1,25 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      swaggerUrl:
+        type: string
+        description: URL to the Swagger specification
+      authKey:
+        type: string
+        description: Optional authentication key for API requests
+    required:
+      - swaggerUrl
+    additionalProperties: false
+  commandFunction: |
+    function(config) {
+      return {
+        command: "npm",
+        args: ["run", "start"],
+        env: {
+          SWAGGER_URL: config.swaggerUrl,
+          AUTH_KEY: config.authKey || ""
+        }
+      };
+    } 
